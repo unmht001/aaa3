@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/services.dart';
 import 'lanuageMap.dart';
+import 'support.dart';
 // import 'dart:math';
 
 class Tts {
@@ -105,78 +106,69 @@ class TtsHelper {
   }
 }
 
-class WordPageData {
-  Map data = {};
-  static num max = -1;
-  static final List<WordPageData> _instance = [];
 
-  WordPageData(
-      {String document: "",
-      int documentlength: 0,
-      num position: -1,
-      Color color1: Colors.greenAccent,
-      Color color2: Colors.yellowAccent}) {
-    this.data["document"] = document;
-    this.data["documentlength"] = documentlength;
-    this.data["position"] = position;
-    this.data["color1"] = color1;
-    this.data["color2"] = color2;
-    this.data["No."] = WordPageData.max + 1;
-    WordPageData.max += 1;
-    WordPageData._instance.add(this);
-  }
-  WordPageData.fromMap(mp)
-      : this(
-          document: mp["document"] ?? "",
-          documentlength: mp["documentlength"] ?? 0,
-          position: mp["position"] ?? -1,
-          color1: mp["color1"] ?? Colors.greenAccent,
-          color2: mp["color2"] ?? Colors.yellowAccent,
-        );
-}
+
+
 
 class WordPage extends StatefulWidget {
-  WordPage({Key key, this.document}) : super(key: key);
-  final List<String> document;
-  final List cl = [Colors.greenAccent, -1, 0];
+  WordPage({Key key, this.document,Function fn}) : super(key: key){fd[0]=fn;}
+  final Textsheet document;
+  final List<Textsheet> hl=[null];
+  final List<Function> fd=[null];
   @override
   _WordPageState createState() => _WordPageState();
-  next() {
-    cl[1] += 1;
-    if (cl[1] >= cl[2]) {
-      if (cl[2] == 0) {
-        cl[1] = -1;
-      } else {
-        cl[1] = 0;
-      }
+  next(){
+    Textsheet _now;
+    if(hl[0]==null){
+      _now=document;
+      document.changeHighlight();
+    }else{
+      _now=hl[0];
+    }
+    if (_now.son==null){
+      _now.data["highlight"]=false;
+      hl[0]=null;
+    }else{
+      hl[0]=_now.son;
+      _now.data['highlight']=true;
     }
   }
 }
 
 class _WordPageState extends State<WordPage> {
-  Widget ff(List sss) {
+  Widget ff(Textsheet sss) {
     return Container(
-        color: sss[0] == this.widget.cl[1] ? Colors.greenAccent : Colors.yellowAccent,
+        color: sss.cl,
         padding: EdgeInsets.all(5),
         child: GestureDetector(
             child:
-                Text(sss[1].toString(), softWrap: true, style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20.0)),
+                Text(sss.text, softWrap: true, style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20.0)),
             onTap: () {
               setState(() {
-                this.widget.cl[1] = sss[0];
+                if (this.widget.hl[0]!=null){
+                  this.widget.hl[0].changeHighlight();
+                }
+                sss.changeHighlight();
+                this.widget.hl[0]=sss;
+                if(this.widget.fd[0]!=null){
+                  var a=this.widget.fd[0];                  
+                 a(this.widget.hl[0],setState((){}));
+                }
               });
-              //  TtsHelper.instance.setLanguageAndSpeak(sss.toString(), "zh").then((r){print(333);});
+              //  TtsHelper.instance.setLanguageAndSpeak(sss.toString(), "zh");
             }));
   }
-
+   ff2(Textsheet sss){
+     List<Widget> a=[];
+     var b=sss;
+     while (b!=null){
+       a.add(ff(b));
+       b=b.son;
+     }
+     return a;
+   }
   @override
   Widget build(BuildContext context) {
-    this.widget.cl[2] = this.widget.document.length;
-    var _ctr = -1;
-    var mp = widget.document.map((sss) {
-      _ctr += 1;
-      return [_ctr, sss];
-    });
-    return ListView(children: mp.map((sss) => ff(sss)).toList());
+    return ListView(children: ff2(this.widget.document));
   }
 }

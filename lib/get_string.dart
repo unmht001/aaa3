@@ -35,8 +35,7 @@ getS(MyListener lsn) async {
         lsn.value = "没有找到";
       }
     } else {
-      lsn.value =["Request failed with status: ${response.statusCode}."];
-      print("Request failed with status: ${response.statusCode}.");
+      lsn.value ="Request failed with status: ${response.statusCode}.";
     }
   } catch (e) {
     lsn.value =e.toString();

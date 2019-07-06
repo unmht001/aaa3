@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'value_listener.dart';
 import "package:aaa3/tts_helper.dart";
 import 'package:aaa3/get_string.dart';
+import 'support.dart';
 
 
 void main(){
+  TtsHelper();
   ListenerBox.instance.el('lsner1');
   ListenerBox.instance.el('lsner2');
   ListenerBox.instance.el('lsner3'); 
@@ -49,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body:WordPage(document: ListenerBox.instance.getel('lsner1').value),
+      body:WordPage(document: Textsheet.getTextsheetChain( ListenerBox.instance.getel('lsner1').value),fn:(Textsheet ts,fn)=>{TtsHelper.instance.setLanguageAndSpeak(ts.text.toString(), "zh")}),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: '跳转',
