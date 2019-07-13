@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+// import 'dart:async';
+// import 'dart:io';
+// import 'package:flutter/services.dart';
+// import 'lanuageMap.dart';
 
 class Chain {
   Chain _father;
@@ -63,6 +67,7 @@ class Textsheet extends Chain {
   }
   Textsheet.fromMap(mp) : this.fromString(mp['document'], mp['highlight']);
 
+
   @override
   Chain born() => Chain.exchange(new Textsheet(), super.born());
 
@@ -87,3 +92,105 @@ class Textsheet extends Chain {
     }
   }
 }
+
+
+// class Tts {
+//   static const MethodChannel _channel = const MethodChannel('github.com/blounty-ak/tts');
+
+//   static Future<bool> isLanguageAvailable(String language) async {
+//     final bool languageAvailable =
+//         await _channel.invokeMethod('isLanguageAvailable', <String, Object>{'language': language});
+//     return languageAvailable;
+//   }
+
+//   static Future<bool> setLanguage(String language) async {
+//     final bool isSet = await _channel.invokeMethod('setLanguage', <String, Object>{'language': language});
+//     return isSet;
+//   }
+
+//   static Future<List<String>> getAvailableLanguages() =>
+//       _channel.invokeMethod('getAvailableLanguages').then((result) => result.cast<String>());
+
+//   static Future<void> speak(String text) async {
+//     await _channel.invokeMethod('speak', <String, Object>{'text': text});
+//   }
+// }
+
+// class TtsHelper {
+//   // Locale to tss language map
+//   static final Map<String, String> _languageMap = languageMap;
+//   static final String _defaultL = "zh-CN";
+//   List<String> _languages;
+//   static TtsHelper _instance;
+//   static TtsHelper get instance => _getInstance();
+
+//   factory TtsHelper() => _getInstance();
+//   static TtsHelper _getInstance() {
+//     if (_instance == null) {
+//       _instance = new TtsHelper._internal();
+//     }
+//     return _instance;
+//   }
+
+//   TtsHelper._internal() {
+//     // Initialize
+//     _initPlatformState();
+//   }
+
+//   _initPlatformState() async {
+//     _languages = await Tts.getAvailableLanguages();
+
+//     // If getAvailableLanguages is null, add "en-US" to _languages.
+//     if (_languages == null) {
+//       _languages = [_defaultL];
+//     }
+//     // Default set en-US language
+//     _setLanguage(_defaultL);
+//   }
+
+//   String _getTtsLanguage(String localeStr) {
+//     if (localeStr == null || localeStr.isEmpty || !_languageMap.containsKey(localeStr)) {
+//       return _defaultL;
+//     }
+//     return _languageMap[localeStr];
+//   }
+
+//   // Return whether the result if set language is successful
+//   Future<bool> _setLanguage(String lang) async {
+//     String language = _getTtsLanguage(lang);
+//     if (language == null || language.isEmpty) {
+//       language = _defaultL;
+//     }
+//     if (Platform.isIOS && !_languages.contains(language)) {
+//       return false;
+//     }
+//     final bool isSet = await Tts.setLanguage(language);
+//     return isSet;
+//   }
+
+//   // Returns whether the supported language is supported
+//   Future<bool> _isLanguageAvailable(String language) async {
+//     final bool isSupport = await Tts.isLanguageAvailable(language);
+//     return isSupport;
+//   }
+
+//   Future<void> speak(String text) async {
+//     if (text == null || text.isEmpty) {
+//       return;
+//     }
+//     await Tts.speak(text);
+//   }
+
+//   Future<void> setLanguageAndSpeak(String text, String language) async {
+//     String ttsL = _getTtsLanguage(language);
+//     var setResult = await _setLanguage(ttsL);
+//     if (setResult != null) {
+//       var available = await _isLanguageAvailable(ttsL);
+//       if (available != null) {
+//         await speak(text);
+//       }
+//     }
+//   }
+// }
+
+

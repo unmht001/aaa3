@@ -1,7 +1,7 @@
 import 'package:beautifulsoup/beautifulsoup.dart';
 import "package:dio/dio.dart";
 import 'package:aaa3/value_listener.dart';
-
+// import 'support.dart';
 
 getS(MyListener lsn) async {
   try {
@@ -30,6 +30,7 @@ getS(MyListener lsn) async {
       // }
       if (_ss != null) {
         var _sp=_ss.text;
+        print(_sp);
         lsn.value=_sp;
       } else {
         lsn.value = "没有找到";

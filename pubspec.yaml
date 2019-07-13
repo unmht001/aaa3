@@ -19,15 +19,22 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  tts: ^1.0.2
+  # tts: ^1.0.2
   beautifulsoup: ^0.0.1
-  http: ^0.12.0+2
+  # http: ^0.12.0+2
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   # cupertino_icons: ^0.1.2
   # gbk2utf8: ^1.0.1
   dio: ^2.1.7
   # flutter_bugly: ^0.2.2
+  # provider: ^3.0.0+1
+  # flutter_plugin_tts: ^1.0.2
+  # flutter_tts: ^0.2.6
+  mytts8:
+    git:
+      url: https://github.com/unmht001/mytts8_2.git
+
 
 dev_dependencies:
   flutter_test:

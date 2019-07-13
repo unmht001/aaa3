@@ -74,20 +74,6 @@ packages:
       url: "https://dart-pub.mirrors.sjtug.sjtu.edu.cn/"
     source: hosted
     version: "0.13.4+2"
-  http:
-    dependency: "direct main"
-    description:
-      name: http
-      url: "https://dart-pub.mirrors.sjtug.sjtu.edu.cn/"
-    source: hosted
-    version: "0.12.0+2"
-  http_parser:
-    dependency: transitive
-    description:
-      name: http_parser
-      url: "https://dart-pub.mirrors.sjtug.sjtu.edu.cn/"
-    source: hosted
-    version: "3.1.3"
   matcher:
     dependency: transitive
     description:
@@ -102,6 +88,15 @@ packages:
       url: "https://dart-pub.mirrors.sjtug.sjtu.edu.cn/"
     source: hosted
     version: "1.1.6"
+  mytts8:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "17ce8ee7f77599a729e81ed7d23e2ff577929560"
+      url: "git://github.com/unmht001/mytts8_2.git"
+    source: git
+    version: "1.0.1"
   path:
     dependency: transitive
     description:
@@ -170,13 +165,6 @@ packages:
       url: "https://dart-pub.mirrors.sjtug.sjtu.edu.cn/"
     source: hosted
     version: "0.2.4"
-  tts:
-    dependency: "direct main"
-    description:
-      name: tts
-      url: "https://dart-pub.mirrors.sjtug.sjtu.edu.cn/"
-    source: hosted
-    version: "1.0.2"
   typed_data:
     dependency: transitive
     description:
